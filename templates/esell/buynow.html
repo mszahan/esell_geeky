@@ -1,0 +1,61 @@
+{% extends 'esell/base.html' %}
+{% load static %}
+{% block title %}Buy Now{% endblock title %}
+{% block main-content %}
+<div class="container">
+ <div class="row mt-5">
+  <div class="col-sm-6">
+    <h4>Order Summary</h4>
+    <hr>
+    
+      
+    
+      
+
+      <div class="card mb-2">
+        <div class="card-body">
+          <h5>Product: {{product.title}}</h5>
+          <p>Quantity: {{ product.quantity}}</p>
+          <p>Total: {{product.discounted_price}}</p>
+          <p class="fw-bold"> </p>
+        </div>
+      </div>
+
+      <p class="fw-bold"> Total Cost <small>(Shipping cost: 70)</small>: {{total_amount}} </p>
+
+
+    <small>Term and Condition: Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, ullam saepe! Iure optio repellat dolor velit, minus rem. Facilis cumque neque numquam laboriosam, accusantium adipisci nisi nihil in et quis?</small>
+  </div>
+  <div class="col-sm-4 offset-sm-1">
+    <h4>Select Shipping Address</h4>
+    <hr>
+    <form action="/esell/buydone">
+      
+      {% for add in addr %}
+        
+     
+        
+      <div class="card">
+        <div class="card-body">
+        <h5> {{ add.name }}</h5>
+        <p>{{ add.village }}, {{ add.district }} - {{ add.postal }}, {{ add.division }}</p>
+        <p> Delivary Mail: {{ add.delivary_mail }}</p>
+        </div>
+      </div>
+        <div class="form-check mt-2 mb-5">
+          <input class="form-check-input" type="radio" name="custid" id="custaddr{{forloop.counter}}" value="{{add.id}}">
+          <label class="form-check-label fw-bold" for="">
+            Address: {{forloop.counter}} </label>
+        </div>
+
+        {% endfor %}
+        <input type="hidden" name="product_id" value="{{product.id}}" id="product_id">
+
+        <div class="text-end">
+          <button type="submit" class="btn btn-warning mt-3 px-5 fw-bold">Continue</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock main-content %}
